@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+</head>
+<body>
+<h1>Welcome, {{session.name}}!!</h1>
+<h5>Here are your appointments for today, <b> {{today}}</b></h5>
+<font align="right"><a href='/logout'><b>Logout</b></a></font>
+</h5>
+<div class="container">
+
+<div class="sidebar">
+    <section id="plans">
+        <div class="container">
+            <div class="row">
+
+                <!-- item -->
+                     <div class="col-md-6">
+                    <div class="panel panel-success panel-pricing">
+                        <div class="panel-heading">
+                            <i class="fa fa-desktop"></i>
+                            <h3>Today's tasks</h3>
+                        </div>
+                    
+      <table class="table table-striped">
+
+                                <thead>
+          <tr>
+            <th>Tasks </th>
+            <th>Time</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for user in user%}
+          {% if (day==user['date'])%}
+          <tr>
+            <td>{{user['task']}}</td>
+            <td>{{user['time']}}</td>
+            <td>{{user['status']}}</td>
+            <td>
+              <p><a href='/edit_user/{{session['id']}}/{{user['date_id']}}'>Edit</a> | <a href='/delete/{{session['id']}}/{{user['date_id']}}'>Delete</a>
+            </td>
+          </tr>
+          {%endif%}
+          {%endfor%}
+        </tbody>
+      </table>
+
+                </div>
+                </div>
+                <!-- /item -->  
+                                     <div class="col-md-6">
+                    <div class="panel panel-success panel-pricing">
+                        <div class="panel-heading">
+                            <i class="fa fa-desktop"></i>
+                            <h3>Today's tasks</h3>
+                        </div>
+                    
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Tasks </th>
+            <th>Date</th>
+            <th>Time</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for user in user%}
+          {% if (day!=user['date'])%}
+          <tr>
+            <td>{{user['task']}}</td>
+            <td>{{user['date']}}</td>
+            <td>{{user['time']}}</td>
+          </tr>
+            {%endif%}
+            {%endfor%}
+        </tbody>
+      </table>
+
+                </div>
+                </div>             
+               <!-- item -->
+                <div class="col-md-4 text-center">
+                    <div class="panel panel-danger panel-pricing">
+                        <div class="panel-heading">
+                            <i class="fa fa-desktop"></i>
+                            <h3>Add an appointment</h3>
+                        </div>
+ 
+                        <form action='/add/sessionid' method='post'>
+    <div class="form-group">
+        <label for="description">Date::</label>
+        <input type="date" class="form-control" id="date" name='date'>
+    </div>
+    <div class="form-group">
+        <label for="description">Time::</label>
+        <input type="time" class="form-control" id="time" name='time'>
+    </div>
+    <div class="form-group">
+        <label for="description">Task:</label>
+        <input type="text" class="form-control" id="task" name='task'>
+    </div>
+                        <div class="panel-footer">
+                            <button type="submit" class="btn btn-lg btn-block btn-danger">Add</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- /item -->
+
+            </div>
+        </div>
+    </section>
+    <!-- /Plans -->
+</div>
+
+</div>
+</body>
+</html>
